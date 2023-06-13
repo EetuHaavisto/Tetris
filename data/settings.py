@@ -15,3 +15,4 @@ COLORS ={"WHITE": (255, 255, 255),
 
 # Paths for resources (Dictionaries)
 FONTS = resource_paths(os.path.join("resources", "fonts"), (".ttf"))
+GFX = resource_paths(os.path.join("resources", "graphics"), (".png"))

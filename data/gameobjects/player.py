@@ -1,20 +1,18 @@
 import pygame
 
 from data.settings import COLORS
-from data.settings import GFX
 
-IMAGES = [pygame.image.load(image).convert_alpha() for image in GFX]
+
 SPEED_Y = 100
 SPEED_X = 20
 
 class Block(pygame.sprite.Sprite):
 
-    def __init__(self, screen_rect):
+    def __init__(self, screen_rect, image):
         super().__init__()
         self.screen_rect = screen_rect
 
-        self.image = pygame.surface.Surface((40, 40))
-        self.image.fill(COLORS["RED"])
+        self.image = image
         self.rect = self.image.get_rect(centerx=self.screen_rect.centerx, y=0)
 
         # Floating point position
