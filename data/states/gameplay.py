@@ -28,6 +28,8 @@ class Gameplay(State):
                     self.current_block.move_x()
                 elif event.key == pygame.K_LEFT:
                     self.current_block.move_x(-1)
+                elif event.key == pygame.K_UP:
+                    self.current_block.rotate()
     
     def update(self, dt):
         """Game logic"""

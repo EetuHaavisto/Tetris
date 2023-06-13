@@ -13,6 +13,7 @@ class Block(pygame.sprite.Sprite):
         self.screen_rect = screen_rect
 
         self.image = image
+        self.mask = pygame.mask.from_surface(self.image)
         self.rect = self.image.get_rect(centerx=self.screen_rect.centerx, y=0)
 
         # Floating point position
@@ -33,3 +34,12 @@ class Block(pygame.sprite.Sprite):
 
     def update(self, dt):
         self.move(dt)
+
+    def rotate(self, rotation_angle = 90):
+        rotated_image = pygame.transform.rotate(self.image, rotation_angle)
+        rotated_mask = pygame.mask.from_surface(rotated_image)
+
+        self.image = rotated_image
+        self.mask = rotated_mask
+
+
