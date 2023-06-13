@@ -25,7 +25,6 @@ class State():
     def cleanup(self):
         """Return variables that should persists."""
         self.done = False
-        print("Cleaned")
         return self.persist
 
     def handle_events(self, events):
