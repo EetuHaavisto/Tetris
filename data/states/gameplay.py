@@ -18,6 +18,7 @@ class Gameplay(State):
 
         self.current_block = Block(self.screen_rect, random.choice(self.images))
         self.current_block_group = pygame.sprite.GroupSingle(self.current_block)
+        self.stopped_blocks_group = pygame.sprite.Group()
 
 
     def handle_events(self, events):
@@ -25,17 +26,27 @@ class Gameplay(State):
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RIGHT:
-                    self.current_block.move_x()
+                    self.current_block.change_x_speed()
                 elif event.key == pygame.K_LEFT:
+
                     self.current_block.move_x(-1)
                 elif event.key == pygame.K_UP:
                     self.current_block.rotate()
+
+                    self.current_block.change_x_speed(-1)
+
     
     def update(self, dt):
         """Game logic"""
-        self.current_block_group.update(dt)
+        self.current_block.move(self.stopped_blocks_group, dt)
+        
+        if not self.current_block_group:
+            self.current_block = Block(self.screen_rect, random.choice(self.images))
+            self.current_block_group.add(self.current_block)
+
     
     def draw(self, screen):
         """Renders the graphics"""
         screen.fill(COLORS["BLACK"])
         self.current_block_group.draw(screen)
+        self.stopped_blocks_group.draw(screen)
