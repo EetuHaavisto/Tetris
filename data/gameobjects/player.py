@@ -1,7 +1,7 @@
 import pygame
 
 
-SPEED_Y = 100
+SPEED_Y = 60
 SPEED_X = 20
 
 class Block(pygame.sprite.Sprite):
@@ -18,6 +18,7 @@ class Block(pygame.sprite.Sprite):
         self.true_y = self.rect.y
 
         self.speed_x = 0
+        self.speed_y = SPEED_Y
 
     def change_x_speed(self, dir=1):
         """Changes speed in x-direction. 
@@ -27,7 +28,7 @@ class Block(pygame.sprite.Sprite):
     def move(self, stopped_blocks_group, dt):
         """Moves the block down and left/right and checks 
         for collisions with other blocks"""
-        y_increment = SPEED_Y * dt
+        y_increment = self.speed_y * dt
         x_increment = self.speed_x
         self.true_y += y_increment
         self.rect.x += x_increment
@@ -80,4 +81,10 @@ class Block(pygame.sprite.Sprite):
         # Round the y position to nearest ten
         self.true_y = round(self.true_y / 10) * 10
         self.rect.y = round(self.true_y)
+
+    def y_speed_up(self):
+        self.speed_y = 4 * SPEED_Y
+
+    def y_speed_normal(self):
+        self.speed_y = SPEED_Y
 
