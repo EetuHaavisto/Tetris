@@ -28,12 +28,15 @@ class Gameplay(State):
                 if event.key == pygame.K_RIGHT:
                     self.current_block.change_x_speed()
                 elif event.key == pygame.K_LEFT:
-
                     self.current_block.change_x_speed(-1)
                 elif event.key == pygame.K_UP:
                     self.current_block.rotate()
-
-
+        
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_DOWN]:
+            self.current_block.y_speed_up()
+        else:
+            self.current_block.y_speed_normal()
 
     
     def update(self, dt):
