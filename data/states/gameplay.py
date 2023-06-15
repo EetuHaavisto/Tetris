@@ -31,7 +31,7 @@ class Gameplay(State):
 
                     self.current_block.change_x_speed(-1)
                 elif event.key == pygame.K_UP:
-                    self.current_block.rotate()
+                    self.current_block.rotate(self.stopped_blocks_group)
 
 
 
