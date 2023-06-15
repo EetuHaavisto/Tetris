@@ -46,9 +46,11 @@ class Block(pygame.sprite.Sprite):
     def rotate(self, rotation_angle = 90):
         rotated_image = pygame.transform.rotate(self.image, rotation_angle)
         rotated_mask = pygame.mask.from_surface(rotated_image)
+        rotated_rect = rotated_image.get_rect(center = self.rect.center)
 
         self.image = rotated_image
         self.mask = rotated_mask
+        self.rect = rotated_rect
 
 
     def check_collisions(self, collided, stopped_blocks_group, y_increment, x_increment):
