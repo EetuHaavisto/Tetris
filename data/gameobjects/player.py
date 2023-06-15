@@ -52,8 +52,8 @@ class Block(pygame.sprite.Sprite):
         rotated_sprite = pygame.sprite.Sprite()
         rotated_sprite.rect = rotated_rect
 
-        # Check that the rotated block doesn't collide
-        if pygame.sprite.spritecollideany(rotated_sprite,stopped_blocks_group) == None:
+        # The rotated block should not collide
+        if pygame.sprite.spritecollideany(rotated_sprite,stopped_blocks_group) is None:
             self.image = rotated_image
             self.mask = rotated_mask
             self.rect = rotated_rect

@@ -45,14 +45,25 @@ class Gameplay(State):
     def update(self, dt):
         """Game logic"""
         self.current_block.move(self.stopped_blocks_group, dt)
-        
+
+        # Generating new block after collision
         if not self.current_block_group:
             self.current_block = Block(self.screen_rect, random.choice(self.images))
             self.current_block_group.add(self.current_block)
 
+            if self.__is_game_over():
+                self.done = True
     
     def draw(self, screen):
         """Renders the graphics"""
         screen.fill(COLORS["BLACK"])
         self.current_block_group.draw(screen)
         self.stopped_blocks_group.draw(screen)
+
+    def __is_game_over(self):
+        # This is a private method meant to be used inside this class
+        # The game ends when a newly generated block collides with the old
+        if pygame.sprite.spritecollideany(self.current_block, self.stopped_blocks_group):
+            return True
+
+        return False
