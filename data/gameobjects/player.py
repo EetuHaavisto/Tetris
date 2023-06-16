@@ -13,7 +13,7 @@ class Block(pygame.sprite.Sprite):
         self.image = image
         self.mask = pygame.mask.from_surface(self.image)
         # Generate the block to align with tile grid
-        self.rect = self.image.get_rect(x=4*TILE_SIZE, y=0)
+        self.rect = self.image.get_rect(x=4*TILE_SIZE, bottom=0)
 
         # Floating point position
         self.true_y = self.rect.y
@@ -39,6 +39,11 @@ class Block(pygame.sprite.Sprite):
                                                   collided=pygame.sprite.collide_mask)
         self.check_collisions(collided, stopped_blocks_group, 
                               y_increment, x_increment)
+        # Do not let the block go out of play screen.
+        if self.rect.left <= 0:
+            self.rect.x = 0
+        elif self.rect.right >= self.screen_rect.right:
+            self.rect.right = self.screen_rect.right
 
         self.speed_x = 0
 
