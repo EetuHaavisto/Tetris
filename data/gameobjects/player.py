@@ -1,5 +1,5 @@
 import pygame
-
+from data.settings import TILE_SIZE
 
 SPEED_Y = 60
 SPEED_X = 20
@@ -12,7 +12,8 @@ class Block(pygame.sprite.Sprite):
 
         self.image = image
         self.mask = pygame.mask.from_surface(self.image)
-        self.rect = self.image.get_rect(centerx=self.screen_rect.centerx, y=0)
+        # Generate the block to align with tile grid
+        self.rect = self.image.get_rect(x=4*TILE_SIZE, y=0)
 
         # Floating point position
         self.true_y = self.rect.y
@@ -53,7 +54,8 @@ class Block(pygame.sprite.Sprite):
         rotated_sprite.rect = rotated_rect
 
         # The rotated block should not collide
-        if pygame.sprite.spritecollideany(rotated_sprite,stopped_blocks_group) is None:
+        if pygame.sprite.spritecollideany(rotated_sprite,stopped_blocks_group) is None and self.screen_rect.right >= rotated_rect.right:
+            # and should not exceed the (right side) border
             self.image = rotated_image
             self.mask = rotated_mask
             self.rect = rotated_rect

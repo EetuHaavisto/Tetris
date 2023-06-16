@@ -5,12 +5,12 @@ import pygame
 from .state import State
 from data.settings import COLORS
 from data.settings import GFX
-from data.settings import GAME_CAPTION
+from data.settings import GAME_CAPTION, TILE_SIZE
 from data.settings import FONTS
 from data.gameobjects.player import Block
 
 
-TILE_SIZE = 20
+
 PLAY_SCREEN_WIDTH = 10 * TILE_SIZE
 
 
