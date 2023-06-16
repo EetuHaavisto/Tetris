@@ -8,7 +8,7 @@ class Gameover(State):
 
     def __init__(self):
         super().__init__()
-        self.title = self.font.render("GAME OVER", True, COLORS["WHITE"])
+        self.title = self.font_header.render("GAME OVER", True, COLORS["WHITE"])
         self.title_rect = self.title.get_rect(center=self.screen_rect.center)
 
     def handle_events(self, events):

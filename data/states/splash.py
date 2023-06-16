@@ -8,7 +8,7 @@ class Splash(State):
 
     def __init__(self):
         super().__init__()
-        self.title = self.font.render(GAME_CAPTION, True, COLORS["WHITE"])
+        self.title = self.font_header.render(GAME_CAPTION, True, COLORS["WHITE"])
         self.title_rect = self.title.get_rect(center=self.screen_rect.center)
         self.next_state = "MENU"
         self.time_active = 0
