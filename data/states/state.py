@@ -14,7 +14,8 @@ class State():
         self.next_state = None
         self.screen_rect = pygame.display.get_surface().get_rect()
         self.persist = {}
-        self.font = pygame.font.Font(FONTS["fixedsys"], 48)
+        self.font_header = pygame.font.Font(FONTS["fixedsys"], 48)
+        self.font_text = pygame.font.Font(FONTS["fixedsys"], 24)
         self.graphics = {}
         self.sounds = {}
 

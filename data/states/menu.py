@@ -15,7 +15,7 @@ class Menu(State):
     def render_text(self, index):
         """Create text surfaces"""
         color = COLORS["RED"] if index == self.active_index else COLORS["WHITE"]
-        return self.font.render(self.options[index], True, color)
+        return self.font_header.render(self.options[index], True, color)
 
     def get_text_position(self, text, index):
         """Returns position for text surface"""
