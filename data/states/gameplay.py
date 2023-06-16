@@ -23,20 +23,21 @@ class Gameplay(State):
                                                                "graphics", 
                                                                "play_background.png")).convert()
         self.play_rect = self.play_background.get_rect()
-
-        center_x = self.screen_rect.width - (self.screen_rect.width-self.play_rect.width)/2
-        self.title_surface = pygame.font.Font.render(self.font_header, GAME_CAPTION, True, COLORS["WHITE"])
-        self.title_rect = self.title_surface.get_rect(centerx=center_x, y=50)
-        self.next_piece_surface = pygame.font.Font.render(self.font_text, "Next Block", True, COLORS["WHITE"])
-        self.next_piece_rect = self.next_piece_surface.get_rect(centerx=center_x, y=self.title_rect.y + 100)
-        self.score_surface = pygame.font.Font.render(self.font_text, "Score:", True, COLORS["WHITE"])
-        self.score_rect = self.score_surface.get_rect(centerx=center_x, y=self.next_piece_rect.y + 100)
         
         self.images = [pygame.image.load(BLOCKS[image]).convert_alpha() for image in BLOCKS.keys()]
 
         self.current_block = Block(self.play_rect, random.choice(self.images))
+        self.next_block = Block(self.play_rect, random.choice(self.images))
         self.current_block_group = pygame.sprite.GroupSingle(self.current_block)
         self.stopped_blocks_group = pygame.sprite.Group()
+
+        center_x = self.screen_rect.width - (self.screen_rect.width-self.play_rect.width)/2
+        self.title_surface = pygame.font.Font.render(self.font_header, GAME_CAPTION, True, COLORS["WHITE"])
+        self.title_rect = self.title_surface.get_rect(centerx=center_x, y=50)
+        self.next_text_surface = pygame.font.Font.render(self.font_text, "Next Block:", True, COLORS["WHITE"])
+        self.next_text_rect = self.next_text_surface.get_rect(centerx=center_x, y=self.title_rect.y + 100)
+        self.score_surface = pygame.font.Font.render(self.font_text, "Score:", True, COLORS["WHITE"])
+        self.score_rect = self.score_surface.get_rect(centerx=center_x, y=self.next_text_rect.y + 150)
 
 
     def handle_events(self, events):
@@ -66,8 +67,9 @@ class Gameplay(State):
 
         # Generating new block after collision
         if not self.current_block_group:
-            self.current_block = Block(self.play_rect, random.choice(self.images))
+            self.current_block = self.next_block
             self.current_block_group.add(self.current_block)
+            self.next_block = Block(self.play_rect, random.choice(self.images))
 
             if self.__is_game_over():
                 self.done = True
@@ -82,8 +84,10 @@ class Gameplay(State):
         screen.fill(COLORS["BLACK"])
         screen.blit(self.play_background, self.play_rect)
         screen.blit(self.title_surface, self.title_rect)
+        screen.blit(self.next_text_surface, self.next_text_rect)
+        screen.blit(self.next_block.image, (self.next_text_rect.centerx - (self.next_block.rect.width/2), self.next_text_rect.y+60))
         screen.blit(self.score_surface, self.score_rect)
-        screen.blit(self.next_piece_surface, self.next_piece_rect)
+        
 
     def __is_game_over(self):
         # This is a private method meant to be used inside this class
